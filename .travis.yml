@@ -12,6 +12,7 @@ install:
   - sudo apt-get install -y gettext libncurses5-dev libacl1-dev libgpm-dev
   - ./configure --with-features=huge --enable-fail-if-missing --enable-pythoninterp --prefix=$HOME/bin/vim
   - make && make install
+  - cd $HOME/build/heavenshell/vim-misspell/tests
   - git clone https://github.com/junegunn/vader.vim.git
   - export VIM_EXE=$HOME/bin/vim/bin/vim
 
