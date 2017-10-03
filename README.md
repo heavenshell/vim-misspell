@@ -1,5 +1,7 @@
 # vim-misspell
 
+[![Build Status](https://travis-ci.org/heavenshell/vim-misspell.svg?branch=master)](https://travis-ci.org/heavenshell/vim-misspell)
+
 misspell for Vim.
 
 ![Realtime spell check](./assets/vim-misspell.gif)
