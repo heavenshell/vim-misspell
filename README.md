@@ -20,10 +20,26 @@ Open file and just execute `:Misspell`.
 
 That's it.
 
-### Automatically format on save
+### Automatically check on save
 
 ```viml
 autocmd BufWritePost * call misspell#run()
+```
+#### Run Misspell, QuickFixStatus and Vim-Hier
+
+```viml
+function! s:misspell_after(...)
+  execute ':QuickfixStatusEnable'
+  execute ':HierUpdate'
+endfunction
+
+let g:misspell_callbacks = {
+  \ 'after_run': function('s:misspell_after')
+  \ }
+
+autocmd BufWritePost * call misspell#run()
+autocmd InsertLeave * call misspell#run()
+autocmd TextChanged,TextChangedI * call misspell#run()
 ```
 
 ## License
