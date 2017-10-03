@@ -1,0 +1,25 @@
+language: go
+
+go:
+  - 1.9
+
+before_install: go get -u github.com/client9/misspell/cmd/misspell
+
+install:
+  - pwd
+  - sudo apt-get install -y gettext libncurses5-dev libacl1-dev libgpm-dev
+  - ( if [ ! -d ~/vim/bin ]; then git clone https://github.com/vim/vim /tmp/vim && cd /tmp/vim && ./configure ./configure --with-features=huge --enable-fail-if-missing --enable-pythoninterp --prefix=$HOME/vim && make && make install; fi )
+  - export VIM_EXE=$HOME/vim/bin/vim
+  - cd $HOME/build/heavenshell/vim-misspell
+
+cache:
+  directories:
+    - $HOME/vim
+
+before_script:
+  - $HOME/vim/bin/vim --version
+
+script:
+  - cd tests
+  - ./run.sh
+  - cd ..

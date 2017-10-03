@@ -1,0 +1,89 @@
+*misspell*	Wrapper for misspell.
+
+Version: 0.1.0
+Author: Shinya Ohynagi <sohyanagi@gmail.com>
+Repository: http://github.com/heavenshell/vim-misspell/
+License: BSD, see LICENSE for more details.
+
+==============================================================================
+CONTENTS					*misspell-vim-contents*
+
+Introduction		|misspell-vim-introduction|
+Install			|misspell-vim-install|
+Tutorial		|misspell-vim-tutorial|
+Variables		|misspell-vim-variables|
+
+==============================================================================
+INTRODUCTION					*misspell-vim-introduction*
+
+|misspell.vim| is a wrapper of `misspell`.
+
+==============================================================================
+INSTALL						*misspell-vim-install*
+
+Install the distributed files into Vim runtime directory which is usually
+~/.vim/, or $HOME/vimfiles on Windows.
+
+If you use built in `package`, you should extract the
+file into '~/.vim/pack/*/start' directory.
+
+==============================================================================
+TUTORIAL					*misspell-vim-tutorial*
+
+Usage:
+>
+  :Misspell
+  :cwindow
+>
+After run `:Misspell` misspell.vim would show errors if error exists.
+
+- Show QuickFix error in statusline, and highlight QuickFix errors run
+  quickfixstatus.vim and vim-hier.
+>
+  function! s:misspell_after(...)
+    execute ':QuickfixStatusEnable'
+    execute ':HierUpdate'
+  endfunction
+
+  let g:misspell_callbacks = {
+    \ 'after_run': function('s:misspell_after')
+    \ }
+  autocmd BufWritePost *.md call misspell#run()
+  autocmd InsertLeave *.md call misspell#run()
+  autocmd TextChanged,TextChangedI *.md call misspell#run()
+>
+You can select misspell config file via command line.
+>
+Helpful plugins
+`QuickFixstatus` shows error message at the bottom of the screen.
+
+`Hier` will highlight quickfix errors and location list entries in buffer.
+
+==============================================================================
+VARIABLES					*misspell-vim-variables*
+g:misspell_bin					*g:misspell_bin*
+		Path to misspell binary.
+		If g:misspell_bin is empty, find binary from PATH.
+
+		Default value is ''.
+
+
+g:misspell_enable_quickfix			*g:misspell_enable_quickfix*
+		Enable to open QuickFix window automatically.
+
+		Default value is 0(Do not open automatically)
+
+
+g:misspell_callbacks				*g:misspell_callbacks*
+		Hook points. User can inject various functions to snowflke.
+
+		before_run	Inject to textlint#run() before called
+		after_run 	Inject to textlint#run() after called
+
+
+==============================================================================
+CHANGELOG					*textlint-vim-changelog*
+2016-07-10
+- First release
+
+vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:

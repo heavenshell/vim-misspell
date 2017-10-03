@@ -1,0 +1,8 @@
+# vim:set et sw=4 ts=4 tw=79:
+Execute ('Run Misspell'):
+  edit ./README.md
+  :Misspell
+  sleep 2
+
+  let qf = getqflist()
+  AssertEqual len(qf), 1
