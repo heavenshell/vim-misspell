@@ -10,6 +10,9 @@ set cpo&vim
 let g:misspell_bin = get(g:, 'misspell_bin', '')
 let g:misspell_enable_quickfix = get(g:, 'misspell_enable_quickfix', 0)
 let g:misspell_callbacks = get(g:, 'misspell_callbacks', {})
+let g:misspell_ignores = get(g:, 'misspell_ignores', '')
+let g:misspell_locale = get(g:, 'misspell_locale', '')
+
 let s:bin = ''
 let s:results = []
 
@@ -35,6 +38,7 @@ function! s:exit_callback(ch, msg, mode)
   if len(s:results) == 0
     return
   endif
+  " echomsg printf('[Misspell] %s errors found', len(s:results))
 
   if len(s:results) == 0 && len(getqflist()) == 0
     " No Errors. Clear quickfix then close window if exists.
@@ -81,8 +85,14 @@ function! misspell#run(...)
 
   let mode = a:0 > 0 ? a:1 : 'r'
   let cmd = bin
+  if g:misspell_locale != ''
+    let cmd = cmd . ' -locale ' . g:misspell_locale
+  endif
+  if g:misspell_ignores != ''
+    let cmd = cmd . ' -i ' . g:misspell_ignores
+  endif
   let file = expand('%:p')
-  " Send buffe directly raise SEGV.
+  " Send buffe directly raises SEGV.
   " let s:job = job_start(cmd, {
   "       \ 'callback': {c, m -> s:callback(c, m, file)},
   "       \ 'exit_cb': {c, m -> s:exit_callback(c, m, mode)},
@@ -90,7 +100,6 @@ function! misspell#run(...)
   "       \ 'in_io': 'buffer',
   "       \ 'in_name': file,
   "       \ })
-
   let bufnum = bufnr('%')
   let input = join(getbufline(bufnum, 1, '$'), "\n") . "\n"
   let s:job = job_start(cmd, {
@@ -105,7 +114,6 @@ function! misspell#run(...)
     call ch_sendraw(channel, input)
     call ch_close_in(channel)
   endif
-
 endfunction
 
 let &cpo = s:save_cpo

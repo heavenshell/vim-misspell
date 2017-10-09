@@ -1,6 +1,6 @@
 *misspell*	Wrapper for misspell.
 
-Version: 0.1.0
+Version: 0.2.0
 Author: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-misspell/
 License: BSD, see LICENSE for more details.
@@ -67,23 +67,32 @@ g:misspell_bin					*g:misspell_bin*
 
 		Default value is ''.
 
-
 g:misspell_enable_quickfix			*g:misspell_enable_quickfix*
 		Enable to open QuickFix window automatically.
 
 		Default value is 0(Do not open automatically)
 
-
 g:misspell_callbacks				*g:misspell_callbacks*
 		Hook points. User can inject various functions to snowflke.
 
-		before_run	Inject to textlint#run() before called
-		after_run 	Inject to textlint#run() after called
+		after_run 	Inject to misspell#run() after called
 
+g:misspell_ignores					*g:misspell_ignores*
+		Ignore the following corrections, comma separated
+
+		Default value is ''.
+
+g:misspell_locale					*g:misspell_locale*
+		Correct spellings using locale perferances for US or UK.
+
+		Default value is ''(to use a neutral variety of English).
 
 ==============================================================================
-CHANGELOG					*textlint-vim-changelog*
-2016-07-10
+CHANGELOG					*misspell-vim-changelog*
+2017-10-09
+  - Add ignores and locale options
+
+2017-10-04
 - First release
 
 vim:tw=78:ts=8:ft=help:norl:noet:fen:fdl=0:

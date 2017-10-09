@@ -2,7 +2,26 @@
 Execute ('Run Misspell'):
   edit ./README.md
   :Misspell
-  sleep 2
+  sleep 1
+
+  let qf = getqflist()
+  AssertEqual len(qf), 1
+
+Execute ('Locale option'):
+  let g:misspell_locale='UK'
+  edit ./README.md
+  :Misspell
+  sleep 1
+
+  let qf = getqflist()
+  AssertEqual len(qf), 3
+
+Execute ('Ignores option'):
+  let g:misspell_locale='UK'
+  let g:misspell_ignores='favorite,color'
+  edit ./README.md
+  :Misspell
+  sleep 1
 
   let qf = getqflist()
   AssertEqual len(qf), 1
