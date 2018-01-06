@@ -35,11 +35,6 @@ function! s:callback(ch, msg, file)
 endfunction
 
 function! s:exit_callback(ch, msg, mode)
-  if len(s:results) == 0
-    return
-  endif
-  " echomsg printf('[Misspell] %s errors found', len(s:results))
-
   if len(s:results) == 0 && len(getqflist()) == 0
     " No Errors. Clear quickfix then close window if exists.
     call setqflist([], 'r')
