@@ -1,6 +1,6 @@
 *misspell*	Wrapper for misspell.
 
-Version: 0.2.0
+Version: 0.2.1
 Author: Shinya Ohynagi <sohyanagi@gmail.com>
 Repository: http://github.com/heavenshell/vim-misspell/
 License: BSD, see LICENSE for more details.
@@ -89,6 +89,9 @@ g:misspell_locale					*g:misspell_locale*
 
 ==============================================================================
 CHANGELOG					*misspell-vim-changelog*
+2018-01-06
+  - After misspell fixed, QuickFix did not clear
+
 2017-10-09
   - Add ignores and locale options
 
